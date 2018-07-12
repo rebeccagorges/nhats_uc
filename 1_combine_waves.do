@@ -72,7 +72,9 @@ keep `keepallwaves' re4intplace re4newstrct re4spadrsnew re4dresistrct ///
 
 
 if `w'==5 {	
-keep `keepallwaves' re5intplace re5newstrct re5spadrsnew re5dresistrct ///
+keep `keepallwaves' r5dcontnew r`w'dgender rl`w'dracehisp rl`w'spkothlan el`w'higstschl ///
+    ia`w'toincim1-ia`w'toincim5 ia5totinc ///
+	re5intplace re5newstrct re5spadrsnew re5dresistrct ///
 	re5dcensdiv ip5nginslast	
 }
 
@@ -128,6 +130,16 @@ forvalues w= 2/6{
 append using round_`w'_ltd.dta
 }
 
+//merge in tracker status information
+merge m:1 spid using raw/NHATS_R6/NHATS_Round_6_Tracker_File_V2, ///
+	keepusing(yearsample r6status r6spstat r6spstatdtyr ///
+	r5status r5spstat r5spstatdtyr r4status r4spstat r4spstatdtyr ///
+	r3status r3spstat r3spstatdtyr ///
+	r2status r2spstat r2spstatdtyr r1status r1spstat r1spstatdtyr)
+
+drop if _merge==2
+drop _merge	
+	
 save round_1_to_6.dta, replace
 
 *********************************************
