@@ -244,10 +244,10 @@ la val female female
 tab female wave, missing
 
 tab rl1dracehisp, missing
-tab r51dracehisp, missing
+tab rl5dracehisp, missing
 //race, ethnicity
 gen race_cat=rl1dracehisp if wave==1 
-replace race_cat=r51dracehisp if (wave==5 & race_cat==.) 
+replace race_cat=rl5dracehisp if (wave==5 & race_cat==.) 
 replace race_cat=3 if inlist(race_cat,5) 
 replace race_cat=. if race_cat==6
 
